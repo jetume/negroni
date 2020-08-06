@@ -7,7 +7,7 @@ NegroniはGoによるWeb ミドルウェアへの慣用的なアプローチで�
 
 ## はじめに
 
-Goをインストールし、[GOPATH](http://golang.org/doc/code.html#GOPATH)の設定を行った後、.goファイルを作りましょう。これをserver.goとします。
+Goをインストールし、[GOPATH](http://golang.org/doc/code.html#GOPATH)の設定を行った後、`.go`ファイルを作りましょう。これを`server.go`とします。
 
 <!-- { "interrupt": true } -->
 ``` go
@@ -89,7 +89,7 @@ type Handler interface {
 }
 ```
 
-ミドルウェアが既にResponseWriter に書き込み処理を行っていない場合、次のミドルウェア・ハンドラを動かすために、チェーン内の次のhttp.HandlerFuncを呼び出す必要があります。
+ミドルウェアが既に`ResponseWriter`に書き込み処理を行っていない場合、次のミドルウェア・ハンドラを動かすために、チェーン内の次の`http.HandlerFunc`を呼び出す必要があります。
 
 
 ``` go
@@ -278,7 +278,7 @@ func main() {
 ```
 
 上記のコードは、 `500 Internal Server Error` を各リクエストごとに返します。
-また、スタックトレースをログに出力するだけでなく、PrintStack がtrue に設定されている場合、クライアントにスタックトレースを出力します。（デフォルトでtrue に設定されています。）
+また、スタックトレースをログに出力するだけでなく、`PrintStack`が`true`に設定されている場合、クライアントにスタックトレースを出力します。（デフォルトで`true`に設定されています。）
 
 ## Logger
 
@@ -314,8 +314,7 @@ func main() {
 各リクエストごとに、以下のようなログが出力されます。
 
 ```
-[negroni] Started GET /
-[negroni] Completed 200 OK in 145.446µs
+[negroni] 2017-10-04T14:56:25+02:00 | 200 |      378µs | localhost:3004 | GET /
 ```
 
 
@@ -328,10 +327,13 @@ Negroni と互換性のあるミドルウェアの一覧です。あなたが作
 
 | ミドルウェア名 | 作者 | 概要 |
 | -----------|--------|-------------|
+| [authz](https://github.com/casbin/negroni-authz) | [Yang Luo](https://github.com/hsluoyz) | ACL, RBAC, ABAC Authorization middlware based on [Casbin](https://github.com/casbin/casbin) |
 | [binding](https://github.com/mholt/binding) | [Matt Holt](https://github.com/mholt) | Data binding from HTTP requests into structs |
 | [cloudwatch](https://github.com/cvillecsteele/negroni-cloudwatch) | [Colin Steele](https://github.com/cvillecsteele) | AWS cloudwatch metrics middleware |
 | [cors](https://github.com/rs/cors) | [Olivier Poitrey](https://github.com/rs) | [Cross Origin Resource Sharing](http://www.w3.org/TR/cors/) (CORS) support |
+| [csp](https://github.com/awakenetworks/csp) | [Awake Networks](https://github.com/awakenetworks) | [Content Security Policy](https://www.w3.org/TR/CSP2/) (CSP) support |
 | [delay](https://github.com/jeffbmartinez/delay) | [Jeff Martinez](https://github.com/jeffbmartinez) | Add delays/latency to endpoints. Useful when testing effects of high latency |
+| [New Relic Go Agent](https://github.com/yadvendar/negroni-newrelic-go-agent) | [Yadvendar Champawat](https://github.com/yadvendar) | Official [New Relic Go Agent](https://github.com/newrelic/go-agent) (currently in beta)  |
 | [gorelic](https://github.com/jingweno/negroni-gorelic) | [Jingwen Owen Ou](https://github.com/jingweno) | New Relic agent for Go runtime |
 | [Graceful](https://github.com/tylerb/graceful) | [Tyler Bunnell](https://github.com/tylerb) | Graceful HTTP Shutdown |
 | [gzip](https://github.com/phyber/negroni-gzip) | [phyber](https://github.com/phyber) | GZIP response compression |
@@ -348,6 +350,9 @@ Negroni と互換性のあるミドルウェアの一覧です。あなたが作
 | [stats](https://github.com/thoas/stats) | [Florent Messa](https://github.com/thoas) | Store information about your web application (response time, etc.) |
 | [VanGoH](https://github.com/auroratechnologies/vangoh) | [Taylor Wrobel](https://github.com/twrobel3) | Configurable [AWS-Style](http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html) HMAC authentication middleware |
 | [xrequestid](https://github.com/pilu/xrequestid) | [Andrea Franz](https://github.com/pilu) | Middleware that assigns a random X-Request-Id header to each request |
+| [mgo session](https://github.com/joeljames/nigroni-mgo-session) | [Joel James](https://github.com/joeljames) | Middleware that handles creating and closing mgo sessions per request |
+| [digits](https://github.com/bamarni/digits) | [Bilal Amarni](https://github.com/bamarni) | Middleware that handles [Twitter Digits](https://get.digits.com/) authentication |
+| [stats](https://github.com/guptachirag/stats) | [Chirag Gupta](https://github.com/guptachirag/stats) | Middleware that manages qps and latency stats for your endpoints and asynchronously flushes them to influx db |
 
 ## Examples
 
@@ -357,7 +362,7 @@ Negroni middleware handler.
 
 ## Live code reload?
 
-[gin](https://github.com/urfave/gin) and
+[gin](https://github.com/codegangsta/gin) and
 [fresh](https://github.com/pilu/fresh) both live reload negroni apps.
 
 ## Go や Negroni の初心者にオススメの参考資料（英語）
